@@ -10,7 +10,7 @@ public class User {
 
     final private SecurityLevel securityLevel;
 
-    User(String firstName, String lastName, SecurityLevel securityLevel) {
+    public User(String firstName, String lastName, SecurityLevel securityLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.securityLevel = securityLevel; 

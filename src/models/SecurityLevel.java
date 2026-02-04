@@ -22,5 +22,4 @@ public enum SecurityLevel {
     public int getClearanceLevel() {
         return this.clearanceLevel;
     }
-
 }
