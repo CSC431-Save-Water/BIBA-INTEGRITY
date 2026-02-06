@@ -13,10 +13,10 @@ import models.WeaponsSpecModel;
 public class Main {
 
     // This map contains all objects linked with their UUIDs
-    private static Map<UUID, BaseModel> objectMap = new HashMap<>();
+    private final static Map<UUID, BaseModel> objectMap = new HashMap<>();
 
     // This map contains all users linked with their UUIDS
-    private static Map<UUID, User> userMap = new HashMap<>();
+    private final static Map<UUID, User> userMap = new HashMap<>();
 
     // This set contains the current avalible fields for operations
     private static Set<BaseModel.Field<?>> avalibleFields;
@@ -87,9 +87,9 @@ public class Main {
             System.out.println(obj.getObjectApiName() + "\t" + obj.getId() + "\t" + obj.getObjectSecurityLevel().getLevelName());
         }
 
-        while(true) {
-            Scanner userInput = new Scanner(System.in);
+        Scanner userInput = new Scanner(System.in);
 
+        while(true) {
             // Gather simulated User
             System.out.print("\nEnter the User Id you wish to simulate as: ");
             String enteredUserId = userInput.nextLine().strip();
@@ -146,11 +146,24 @@ public class Main {
 
             if (readOrWrite.equals("READ")) {
                 // READ operation
+                try {
+                    System.out.println("\n" + model.get(targetField, user));
+                } catch (Exception e) {
+                    System.out.println("\n" + e);
+                }
             } else {    
-                // WRITE operation
-            }
+                System.out.print("Enter Value: ");
+                String userWriteValue = userInput.nextLine();
 
-            userInput.close();
+                try {
+                    model.set((BaseModel.Field<Object>) targetField, userWriteValue, user);
+                    System.out.println("Write Successful.");
+                } catch (ClassCastException e) {
+                    System.out.println("Error: Type mismatch for field " + targetField.name());
+                } catch (Exception e) {
+                    System.out.println("\n" + e);
+                }
+            }
         } 
     }
 }

@@ -25,8 +25,9 @@ public abstract class BaseModel {
             return name;
         }
 
+        // Null Safe Cast
         T cast(Object value) {
-            return type.cast(value);
+            return value != null ? type.cast(value) : null;
         }
 
         @Override
@@ -99,7 +100,13 @@ public abstract class BaseModel {
         if (hasWriteAcess(currentUser)) {
             fields.put(field, value);
         } else {
-            throw new Exception("Current User: " + currentUser.getFullName() + " does not have access to object: " + this.getId());
+            throw new Exception(String.format(
+            "Access Denied [Simple Security Property]: User '%s' (%s) cannot write to object '%s' (%s). No Write-Down allowed.",
+            currentUser.getFullName(), 
+            currentUser.getUserSecurityLevel().getLevelName(), 
+            this.getId(), 
+            this.getObjectSecurityLevel().getLevelName()
+            ));
         }
     }
 
@@ -109,7 +116,13 @@ public abstract class BaseModel {
         if (hasReadAcess(currentUser)) {
             return field.cast(fields.get(field));
         } else {
-            throw new Exception("Current User: " + currentUser.getFullName() + " does not have access to object: " + this.getId());
+            throw new Exception(String.format(
+            "Access Denied [Simple Security Property]: User '%s' (%s) cannot read object '%s' (%s). No Read-Up allowed.",
+            currentUser.getFullName(), 
+            currentUser.getUserSecurityLevel().getLevelName(), 
+            this.getId(), 
+            this.getObjectSecurityLevel().getLevelName()
+            ));
         }
     }
 
