@@ -127,10 +127,10 @@ public abstract class BaseModel {
     }
 
     private boolean hasReadAcess(User currentUser) {
-        return currentUser.getUserSecurityLevel().getClearanceLevel() >= this.securityLevel.getClearanceLevel();
+        return currentUser.getUserSecurityLevel().getClearanceLevel() <= this.securityLevel.getClearanceLevel();
     }
 
     private boolean hasWriteAcess(User currentUser) {
-        return currentUser.getUserSecurityLevel().getClearanceLevel() <= this.securityLevel.getClearanceLevel();
+        return currentUser.getUserSecurityLevel().getClearanceLevel() >= this.securityLevel.getClearanceLevel();
     }
 }
