@@ -101,7 +101,7 @@ public abstract class BaseModel {
             fields.put(field, value);
         } else {
             throw new Exception(String.format(
-            "Access Denied [*Integrity-Property: User '%s' (%s) cannot write to object '%s' (%s). No Write-Down allowed.",
+            "Access Denied [*Integrity-Property: User '%s' (%s) cannot write to object '%s' (%s). No Write-Up allowed.",
             currentUser.getFullName(), 
             currentUser.getUserSecurityLevel().getLevelName(), 
             this.getId(), 
@@ -117,7 +117,7 @@ public abstract class BaseModel {
             return field.cast(fields.get(field));
         } else {
             throw new Exception(String.format(
-            "Access Denied [Simple Integrity Property]: User '%s' (%s) cannot read object '%s' (%s). No Read-Up allowed.",
+            "Access Denied [Simple Integrity Property]: User '%s' (%s) cannot read object '%s' (%s). No Read-Down allowed.",
             currentUser.getFullName(), 
             currentUser.getUserSecurityLevel().getLevelName(), 
             this.getId(), 
